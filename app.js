@@ -8,18 +8,18 @@ function subtract(a, b) {
   return a - b
 }
 
-function sum(arr) {
-  let value = 0;
-  for(let i = 0; i < arr.length; i++) {
-    value += arr[i];
-  }
-  return value;
-}
-
 function multiply(arr) {
   let value = 1;
   for(let i = 0; i < arr.length; i++) {
     value *= arr[i];
+  }
+  return value;
+}
+
+function sum(arr) {
+  let value = 0;
+  for(let i = 0; i < arr.length; i++) {
+    value += arr[i];
   }
   return value;
 }

@@ -1,3 +1,124 @@
+body {
+  background-color: #028090;
+}
+main {
+  margin: 0 auto;
+  width: 400px;
+  padding: 20px;
+  background-color: #e8f1f2;
+  font-family: 'Work Sans', sans-serif;
+}
 .heading {
   text-align: center;
+  font-family: 'Work Sans', sans-serif;
+  font-size: 40px;
+  color: #e8f1f2;
+}
+.grid {
+  display: grid;
+  gap: 1px;
+  width: 360px;
+  height: 450px;
+  grid-template:
+    'clear backspace power divide'
+    'seven eigth nine multiply'
+    'four five six minus'
+    'one two three plus'
+    'zero decimal operate plus';
+}
+.screen {
+  display: grid;
+  justify-items: end;
+  width: 360px;
+  height: 90px;
+  padding: 15px;
+  background-color: #028090;
+  margin-bottom: 15px;
+}
+.history {
+  color: #e8f1f2;
+  align-self: start;
+}
+.input {
+  font-size: 30px;
+  color: #e8f1f2;
+  align-self: end;
+}
+.button {
+  display: flex;
+  /*border: solid 1px #4F6367;*/
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  color: #e8f1f2;
+  background-color: #028090;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.button:hover {
+  background-color: #1d2d44;
+  transition: all 0.2s;
+}
+.operator {
+  background-color: #114B5F;
+}
+.etc {
+  background-color: #F45B69;
+}
+#zero {
+  grid-area: zero;
+}
+#one {
+  grid-area: one;
+}
+#two {
+  grid-area: two;
+}
+#three {
+  grid-area: three;
+}
+#four {
+  grid-area: four;
+}
+#five {
+  grid-area: five;
+}
+#six {
+  grid-area: six;
+}
+#seven {
+  grid-area: seven;
+}
+#eigth {
+  grid-area: eigth;
+}
+#nine {
+  grid-area: nine;
+}
+#decimal {
+  grid-area: decimal;
+}
+#operate {
+  grid-area: operate;
+}
+#plus {
+  grid-area: plus;
+}
+#minus {
+  grid-area: minus;
+}
+#multiply {
+  grid-area: multiply;
+}
+#divide {
+  grid-area: divide;
+}
+#power {
+  grid-area: power;
+}
+#backspace {
+  grid-area: backspace;
+}
+#clear {
+  grid-area: clear;
 }

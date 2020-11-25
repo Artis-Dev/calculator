@@ -6,9 +6,44 @@
   <title>Calculator</title>
   <link rel="stylesheet" href="css/modern-normalize.css">
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/all.css">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@800&display=swap" rel="stylesheet">
 </head>
 <body>
-  <h1 class="heading">Calculator</h1>
+  <header>
+    <h1 class="heading">Calculator</h1>
+  </header>
+  <main>
+    <div class="screen">
+      <div class="history">42 * 10</div>
+      <div class="input">420|</div>
+    </div>
+    <div class="grid">
+      <div id="zero" class="button number"><span>0</span></div>
+      <div id="one" class="button number">1</div>
+      <div id="two" class="button number">2</div>
+      <div id="three" class="button number">3</div>
+      <div id="four" class="button number">4</div>
+      <div id="five" class="button number">5</div>
+      <div id="six" class="button number">6</div>
+      <div id="seven" class="button number">7</div>
+      <div id="eigth" class="button number">8</div>
+      <div id="nine" class="button number">9</div>
+      <div id="decimal" class="button number">.</div>
+      <div id="multiply" class="button operator"><i class="fas fa-times"></i></div>
+      <div id="divide" class="button operator"><i class="fas fa-divide"></i></div>
+      <div id="plus" class="button operator"><i class="fas fa-plus"></i></div>
+      <div id="minus" class="button operator"><i class="fas fa-minus"></i></div>
+      <div id="power" class="button operator"><i class="fas fa-superscript"></i></div>
+      <div id="operate" class="button operator"><i class="fas fa-equals"></i></div>
+      <div id="clear" class="button etc"><i class="fas fa-trash-alt"></i></div>
+      <div id="backspace" class="button etc"><i class="fas fa-backspace"></i></div>
+    </div>
+  </main>
+
+
+
   <script src="app.js"></script>
 </body>
 </html>
