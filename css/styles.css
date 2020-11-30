@@ -39,7 +39,7 @@ main {
   color: #e8f1f2;
   align-self: start;
 }
-.input {
+#input {
   font-size: 30px;
   color: #e8f1f2;
   align-self: end;
@@ -54,6 +54,7 @@ main {
   background-color: #028090;
   cursor: pointer;
   transition: all 0.2s;
+  user-select: none;
 }
 .button:hover {
   background-color: #1d2d44;
@@ -62,7 +63,8 @@ main {
 .operator {
   background-color: #114B5F;
 }
-.etc {
+.clear,
+.backspace {
   background-color: #F45B69;
 }
 #zero {
