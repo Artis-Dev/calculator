@@ -24,7 +24,7 @@ main {
     'seven eigth nine multiply'
     'four five six minus'
     'one two three plus'
-    'zero decimal operate plus';
+    'zero decimal equal plus';
 }
 .screen {
   display: grid;
@@ -34,15 +34,17 @@ main {
   padding: 15px;
   background-color: #028090;
   margin-bottom: 15px;
-}
-.history {
   color: #e8f1f2;
+  justify-items: end;
+  overflow: hidden;
+}
+#history {
   align-self: start;
 }
 #input {
   font-size: 30px;
-  color: #e8f1f2;
   align-self: end;
+  overflow: hidden;
 }
 .button {
   display: flex;
@@ -60,7 +62,8 @@ main {
   background-color: #1d2d44;
   transition: all 0.2s;
 }
-.operator {
+.operator,
+.equal {
   background-color: #114B5F;
 }
 .clear,
@@ -100,8 +103,8 @@ main {
 #decimal {
   grid-area: decimal;
 }
-#operate {
-  grid-area: operate;
+#equal {
+  grid-area: equal;
 }
 #plus {
   grid-area: plus;
