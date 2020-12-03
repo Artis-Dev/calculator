@@ -7,27 +7,40 @@ let firstNumber = '';
 let secondNumber = '';
 let action = '';
 
+function roundLongDecimals(answer) {
+  if (answer.toString().indexOf('.') !== -1) {
+    if (answer.toString().split('.')[1].length > 5) {
+      return answer.toFixed(5);
+    }
+  }
+  return answer;
+}
+
 function add(a, b) {
-  return a + b;
+  const answer = a + b;
+  return roundLongDecimals(answer);
 }
 function subtract(a, b) {
-  return a - b;
+  const answer = a - b;
+  return roundLongDecimals(answer);
 }
 function multiply(a, b) {
-  return a * b;
+  const answer = a * b;
+  return roundLongDecimals(answer);
 }
 function divide(a, b) {
   if (a === 0) {
     return 'Oops';
   }
-  return a / b;
+  const answer = a / b;
+  return roundLongDecimals(answer);
 }
 function power(a, b) {
-  let value = a;
+  let answer = a;
   for (let i = 1; i < b; i++) {
-    value *= a;
+    answer *= a;
   }
-  return value;
+  return roundLongDecimals(answer);
 }
 
 function displayInput(task, newNumber) {
@@ -36,8 +49,14 @@ function displayInput(task, newNumber) {
     input.textContent = newInput;
   } else if (task === 'backspace') {
     newInput = newInput.slice(0, -1);
+    if (newInput.indexOf('.') === -1) {
+      buttons[10].removeAttribute('disabled');
+    }
+    input.textContent = newInput;
   } else if (task === 'clear') {
     newInput = '';
+    buttons[10].removeAttribute('disabled');
+    input.textContent = newInput;
     if (newNumber === 1) {
       firstNumber = '';
       secondNumber = '';
@@ -66,17 +85,26 @@ function operate(operator, a, b) {
 
 function startCalculator() {
   buttons.forEach((item) => {
-    item.addEventListener('click', (e) => {
-      if (item.classList.contains('operator')) {
+    item.addEventListener('click', () => {
+      if (item.classList.contains('number')) {
+        displayInput('add', item.textContent);
+      } else if (item.classList.contains('decimal')) {
+        if (newInput.indexOf('.') !== -1) {
+          item.setAttribute('disabled', '');
+        } else {
+          item.removeAttribute('disabled');
+          displayInput('add', item.textContent);
+        }
+      } else if (item.classList.contains('operator')) {
         if (newInput !== '' && secondNumber === '' && firstNumber === '') {
           firstNumber = newInput;
-          action = e.target.id;
+          action = item.id;
           displayInput('clear', 0);
         } else if (newInput !== '' && firstNumber !== '') {
           secondNumber = newInput;
           operate(action, firstNumber, secondNumber);
           firstNumber = newInput;
-          action = e.target.id;
+          action = item.id;
           newInput = '';
         }
       } else if (item.classList.contains('equal')) {
@@ -89,7 +117,6 @@ function startCalculator() {
       } else if (item.classList.contains('clear')) {
         displayInput('clear', 1);
       }
-      displayInput('add', e.target.textContent);
     });
   });
 }
