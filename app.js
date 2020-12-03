@@ -1,6 +1,6 @@
+const buttons = document.querySelectorAll('.grid > .button');
 const input = document.getElementById('input');
 const history = document.getElementById('history');
-const buttons = document.querySelectorAll('.grid > .button');
 
 let newInput = '';
 let firstNumber = '';
