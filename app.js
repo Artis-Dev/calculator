@@ -1,4 +1,4 @@
-const buttons = document.querySelectorAll('.grid > .button');
+const buttons = document.querySelectorAll('.buttons-grid > .button');
 const input = document.getElementById('input');
 const history = document.getElementById('history');
 const decimalPoint = buttons[10];
@@ -73,12 +73,12 @@ function displayInput(task, newNumber) {
   } else if (task === 'clear') {
     newInput = '';
     decimalPoint.removeAttribute('disabled');
-    input.textContent = newInput;
     if (newNumber === 1) {
       firstNumber = '';
       secondNumber = '';
       action = '';
       history.textContent = '';
+      input.textContent = newInput;
     }
   }
 }
@@ -112,13 +112,13 @@ function buttonsHandler(item) {
       displayInput('add', item.textContent);
     }
   } else if (item.classList.contains('operator')) {
-    if (secondNumber === '' && firstNumber === '') {
+    if (firstNumber === '' && secondNumber === '' && action === '') {
       firstNumber = newInput;
       action = item.id;
       displayHistory(firstNumber);
       displayHistory(action, 'operator');
       displayInput('clear', 0);
-    } else if (newInput !== '' && firstNumber !== '') {
+    } else if (newInput !== '' && firstNumber !== '' && action !== '') {
       secondNumber = newInput;
       displayHistory(secondNumber);
       operate(action, firstNumber, secondNumber);
@@ -129,6 +129,13 @@ function buttonsHandler(item) {
     } else if (newInput === '' && firstNumber !== '' && action === '') {
       displayHistory(firstNumber);
       action = item.id;
+      displayHistory(action, 'operator');
+      secondNumber = newInput;
+      displayInput('clear', 0);
+    } else if (newInput !== '' && firstNumber !== '' && action === '') {
+      firstNumber = newInput;
+      action = item.id;
+      displayHistory(firstNumber);
       displayHistory(action, 'operator');
       displayInput('clear', 0);
     }
