@@ -17,7 +17,6 @@ main {
 .grid {
   display: grid;
   gap: 1px;
-  width: 360px;
   height: 450px;
   grid-template:
     'clear backspace power divide'
@@ -35,11 +34,12 @@ main {
   background-color: #028090;
   margin-bottom: 15px;
   color: #e8f1f2;
-  justify-items: end;
   overflow: hidden;
 }
 #history {
   align-self: start;
+  overflow: hidden;
+  white-space: nowrap;
 }
 #input {
   font-size: 30px;

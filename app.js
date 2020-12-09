@@ -1,6 +1,7 @@
 const buttons = document.querySelectorAll('.grid > .button');
 const input = document.getElementById('input');
 const history = document.getElementById('history');
+const decimalPoint = buttons[10];
 
 let newInput = '';
 let firstNumber = '';
@@ -29,7 +30,7 @@ function multiply(a, b) {
   return roundLongDecimals(answer);
 }
 function divide(a, b) {
-  if (a === 0) {
+  if (b === 0) {
     return 'Oops';
   }
   const answer = a / b;
@@ -37,10 +38,26 @@ function divide(a, b) {
 }
 function power(a, b) {
   let answer = a;
-  for (let i = 1; i < b; i++) {
+  for (let i = 1; i < b; i += 1) {
     answer *= a;
   }
   return roundLongDecimals(answer);
+}
+
+function displayHistory(toHistory) {
+  if (toHistory === 'plus') {
+    history.textContent += '+ ';
+  } else if (toHistory === 'minus') {
+    history.textContent += '- ';
+  } else if (toHistory === 'multiply') {
+    history.textContent += '* ';
+  } else if (toHistory === 'divide') {
+    history.textContent += '/ ';
+  } else if (toHistory === 'power') {
+    history.textContent += '^ ';
+  } else {
+    history.textContent += `${toHistory} `;
+  }
 }
 
 function displayInput(task, newNumber) {
@@ -50,17 +67,18 @@ function displayInput(task, newNumber) {
   } else if (task === 'backspace') {
     newInput = newInput.slice(0, -1);
     if (newInput.indexOf('.') === -1) {
-      buttons[10].removeAttribute('disabled');
+      decimalPoint.removeAttribute('disabled');
     }
     input.textContent = newInput;
   } else if (task === 'clear') {
     newInput = '';
-    buttons[10].removeAttribute('disabled');
+    decimalPoint.removeAttribute('disabled');
     input.textContent = newInput;
     if (newNumber === 1) {
       firstNumber = '';
       secondNumber = '';
       action = '';
+      history.textContent = '';
     }
   }
 }
@@ -83,41 +101,57 @@ function operate(operator, a, b) {
   action = '';
 }
 
+function buttonsHandler(item) {
+  if (item.classList.contains('number')) {
+    displayInput('add', item.textContent);
+  } else if (item.classList.contains('decimal')) {
+    if (newInput.indexOf('.') !== -1) {
+      item.setAttribute('disabled', '');
+    } else {
+      item.removeAttribute('disabled');
+      displayInput('add', item.textContent);
+    }
+  } else if (item.classList.contains('operator')) {
+    if (secondNumber === '' && firstNumber === '') {
+      firstNumber = newInput;
+      action = item.id;
+      displayHistory(firstNumber);
+      displayHistory(action, 'operator');
+      displayInput('clear', 0);
+    } else if (newInput !== '' && firstNumber !== '') {
+      secondNumber = newInput;
+      displayHistory(secondNumber);
+      operate(action, firstNumber, secondNumber);
+      action = item.id;
+      displayHistory(action, 'operator');
+      firstNumber = newInput;
+      displayInput('clear', 0);
+    } else if (newInput === '' && firstNumber !== '' && action === '') {
+      displayHistory(firstNumber);
+      action = item.id;
+      displayHistory(action, 'operator');
+      displayInput('clear', 0);
+    }
+  } else if (item.classList.contains('equal')) {
+    if (newInput !== '' && firstNumber !== '') {
+      secondNumber = newInput;
+      displayHistory(secondNumber);
+      displayHistory('=');
+      operate(action, firstNumber, secondNumber);
+      firstNumber = newInput;
+      newInput = '';
+    }
+  } else if (item.classList.contains('backspace')) {
+    displayInput('backspace', 0);
+  } else if (item.classList.contains('clear')) {
+    displayInput('clear', 1);
+  }
+}
+
 function startCalculator() {
   buttons.forEach((item) => {
-    item.addEventListener('click', () => {
-      if (item.classList.contains('number')) {
-        displayInput('add', item.textContent);
-      } else if (item.classList.contains('decimal')) {
-        if (newInput.indexOf('.') !== -1) {
-          item.setAttribute('disabled', '');
-        } else {
-          item.removeAttribute('disabled');
-          displayInput('add', item.textContent);
-        }
-      } else if (item.classList.contains('operator')) {
-        if (newInput !== '' && secondNumber === '' && firstNumber === '') {
-          firstNumber = newInput;
-          action = item.id;
-          displayInput('clear', 0);
-        } else if (newInput !== '' && firstNumber !== '') {
-          secondNumber = newInput;
-          operate(action, firstNumber, secondNumber);
-          firstNumber = newInput;
-          action = item.id;
-          newInput = '';
-        }
-      } else if (item.classList.contains('equal')) {
-        if (newInput !== '' && firstNumber !== '') {
-          secondNumber = newInput;
-          operate(action, firstNumber, secondNumber);
-        }
-      } else if (item.classList.contains('backspace')) {
-        displayInput('backspace', 0);
-      } else if (item.classList.contains('clear')) {
-        displayInput('clear', 1);
-      }
-    });
+    item.addEventListener('click', () => { buttonsHandler(item); });
+    // item.addEventListener('keyup', (key) => { buttonsHandler(key); });
   });
 }
 
