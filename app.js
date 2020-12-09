@@ -60,9 +60,9 @@ function displayHistory(toHistory) {
   }
 }
 
-function displayInput(task, newNumber) {
+function displayInput(task, value) {
   if (task === 'add') {
-    newInput += newNumber;
+    newInput += value;
     input.textContent = newInput;
   } else if (task === 'backspace') {
     newInput = newInput.slice(0, -1);
@@ -73,7 +73,7 @@ function displayInput(task, newNumber) {
   } else if (task === 'clear') {
     newInput = '';
     decimalPoint.removeAttribute('disabled');
-    if (newNumber === 1) {
+    if (value === 'full') {
       firstNumber = '';
       secondNumber = '';
       action = '';
@@ -83,38 +83,38 @@ function displayInput(task, newNumber) {
   }
 }
 
-function operate(operator, a, b) {
+function operate(operator, num1, num2) {
   displayInput('clear', 0);
   if (operator === 'plus') {
-    displayInput('add', add(+a, +b));
+    displayInput('add', add(+num1, +num2));
   } else if (operator === 'minus') {
-    displayInput('add', subtract(+a, +b));
+    displayInput('add', subtract(+num1, +num2));
   } else if (operator === 'multiply') {
-    displayInput('add', multiply(+a, +b));
+    displayInput('add', multiply(+num1, +num2));
   } else if (operator === 'divide') {
-    displayInput('add', divide(+a, +b));
+    displayInput('add', divide(+num1, +num2));
   } else if (operator === 'power') {
-    displayInput('add', power(+a, +b));
+    displayInput('add', power(+num1, +num2));
   }
   firstNumber = '';
   secondNumber = '';
   action = '';
 }
 
-function buttonsHandler(item) {
-  if (item.classList.contains('number')) {
-    displayInput('add', item.textContent);
-  } else if (item.classList.contains('decimal')) {
+function buttonsHandler(button) {
+  if (button.classList.contains('number')) {
+    displayInput('add', button.textContent);
+  } else if (button.classList.contains('decimal')) {
     if (newInput.indexOf('.') !== -1) {
-      item.setAttribute('disabled', '');
+      button.setAttribute('disabled', '');
     } else {
-      item.removeAttribute('disabled');
-      displayInput('add', item.textContent);
+      button.removeAttribute('disabled');
+      displayInput('add', button.textContent);
     }
-  } else if (item.classList.contains('operator')) {
+  } else if (button.classList.contains('operator')) {
     if (firstNumber === '' && secondNumber === '' && action === '') {
       firstNumber = newInput;
-      action = item.id;
+      action = button.id;
       displayHistory(firstNumber);
       displayHistory(action, 'operator');
       displayInput('clear', 0);
@@ -122,24 +122,24 @@ function buttonsHandler(item) {
       secondNumber = newInput;
       displayHistory(secondNumber);
       operate(action, firstNumber, secondNumber);
-      action = item.id;
+      action = button.id;
       displayHistory(action, 'operator');
       firstNumber = newInput;
       displayInput('clear', 0);
     } else if (newInput === '' && firstNumber !== '' && action === '') {
       displayHistory(firstNumber);
-      action = item.id;
+      action = button.id;
       displayHistory(action, 'operator');
       secondNumber = newInput;
       displayInput('clear', 0);
     } else if (newInput !== '' && firstNumber !== '' && action === '') {
       firstNumber = newInput;
-      action = item.id;
+      action = button.id;
       displayHistory(firstNumber);
       displayHistory(action, 'operator');
       displayInput('clear', 0);
     }
-  } else if (item.classList.contains('equal')) {
+  } else if (button.classList.contains('equal')) {
     if (newInput !== '' && firstNumber !== '') {
       secondNumber = newInput;
       displayHistory(secondNumber);
@@ -148,17 +148,17 @@ function buttonsHandler(item) {
       firstNumber = newInput;
       newInput = '';
     }
-  } else if (item.classList.contains('backspace')) {
+  } else if (button.classList.contains('backspace')) {
     displayInput('backspace', 0);
-  } else if (item.classList.contains('clear')) {
-    displayInput('clear', 1);
+  } else if (button.classList.contains('clear')) {
+    displayInput('clear', 'full');
   }
 }
 
 function startCalculator() {
-  buttons.forEach((item) => {
-    item.addEventListener('click', () => { buttonsHandler(item); });
-    // item.addEventListener('keyup', (key) => { buttonsHandler(key); });
+  buttons.forEach((button) => {
+    button.addEventListener('click', () => { buttonsHandler(button); });
+    // button.addEventListener('keyup', (key) => { buttonsHandler(key); });
   });
 }
 
