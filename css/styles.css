@@ -1,19 +1,57 @@
 body {
   background-color: #028090;
+  font-family: 'Poppins', sans-serif;
 }
+
+header {
+  display: flex;
+  background-color: #e8f1f2;
+  width: 400px;
+  height: 90px;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: center;
+  margin-top: 45px;
+}
+
 main {
   margin: 0 auto;
   width: 400px;
-  padding: 20px;
+  padding: 0 20px 20px;
   background-color: #e8f1f2;
-  font-family: 'Work Sans', sans-serif;
 }
+
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  background-color: #e8f1f2;
+  width: 400px;
+  padding-bottom: 20px;
+}
+
 .heading {
   text-align: center;
-  font-family: 'Work Sans', sans-serif;
   font-size: 40px;
-  color: #e8f1f2;
+  color: #028090;
 }
+
+.copyright {
+  color: #028090;
+  font-weight: 600;
+}
+.copyright a {
+  color: #114B5F;
+  text-decoration: none;
+}
+.copyright a:hover {
+  color: #1d2d44;
+  text-decoration: underline;
+  text-decoration-color: #F45B69;
+  text-decoration-thickness: 2px;
+}
+
 .buttons-grid {
   display: grid;
   gap: 1px;
@@ -25,6 +63,7 @@ main {
     'one two three plus'
     'zero decimal equal plus';
 }
+
 .screen {
   display: grid;
   justify-items: end;
@@ -36,16 +75,19 @@ main {
   color: #e8f1f2;
   overflow: hidden;
 }
+
 #history {
   align-self: start;
   overflow: hidden;
   white-space: nowrap;
 }
+
 #input {
   font-size: 30px;
   align-self: end;
   overflow: hidden;
 }
+
 .button {
   display: flex;
   justify-content: center;
@@ -58,18 +100,22 @@ main {
   user-select: none;
   border: none;
 }
+
 .button:hover {
   background-color: #1d2d44;
   transition: all 0.2s;
 }
+
 .operator,
 .equal {
   background-color: #114B5F;
 }
+
 .clear,
 .backspace {
   background-color: #F45B69;
 }
+
 #zero {
   grid-area: zero;
 }

@@ -50,9 +50,9 @@ function displayHistory(toHistory) {
   } else if (toHistory === 'minus') {
     history.textContent += '- ';
   } else if (toHistory === 'multiply') {
-    history.textContent += '* ';
+    history.textContent += '× ';
   } else if (toHistory === 'divide') {
-    history.textContent += '/ ';
+    history.textContent += '÷ ';
   } else if (toHistory === 'power') {
     history.textContent += '^ ';
   } else {
@@ -62,8 +62,10 @@ function displayHistory(toHistory) {
 
 function displayInput(task, value) {
   if (task === 'add') {
-    newInput += value;
-    input.textContent = newInput;
+    if (value !== '0' || newInput !== '0') {
+      newInput += value;
+      input.textContent = newInput;
+    }
   } else if (task === 'backspace') {
     newInput = newInput.slice(0, -1);
     if (newInput.indexOf('.') === -1) {
@@ -112,7 +114,7 @@ function buttonsHandler(button) {
       displayInput('add', button.textContent);
     }
   } else if (button.classList.contains('operator')) {
-    if (firstNumber === '' && secondNumber === '' && action === '') {
+    if (firstNumber === '' && secondNumber === '' && action === '' && newInput !== '') {
       firstNumber = newInput;
       action = button.id;
       displayHistory(firstNumber);
