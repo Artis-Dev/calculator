@@ -3,6 +3,8 @@ body {
   font-family: 'Poppins', sans-serif;
 }
 
+/* Header */
+
 header {
   display: flex;
   background-color: #e8f1f2;
@@ -14,54 +16,19 @@ header {
   margin-top: 45px;
 }
 
-main {
-  margin: 0 auto;
-  width: 400px;
-  padding: 0 20px 20px;
-  background-color: #e8f1f2;
-}
-
-footer {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto;
-  background-color: #e8f1f2;
-  width: 400px;
-  padding-bottom: 20px;
-}
-
 .heading {
   text-align: center;
   font-size: 40px;
   color: #028090;
 }
 
-.copyright {
-  color: #028090;
-  font-weight: 600;
-}
-.copyright a {
-  color: #114B5F;
-  text-decoration: none;
-}
-.copyright a:hover {
-  color: #1d2d44;
-  text-decoration: underline;
-  text-decoration-color: #F45B69;
-  text-decoration-thickness: 2px;
-}
+/* Main content */
 
-.buttons-grid {
-  display: grid;
-  gap: 1px;
-  height: 450px;
-  grid-template:
-    'clear backspace power divide'
-    'seven eigth nine multiply'
-    'four five six minus'
-    'one two three plus'
-    'zero decimal equal plus';
+main {
+  margin: 0 auto;
+  width: 400px;
+  padding: 0 20px 20px;
+  background-color: #e8f1f2;
 }
 
 .screen {
@@ -88,6 +55,18 @@ footer {
   overflow: hidden;
 }
 
+.buttons-grid {
+  display: grid;
+  gap: 1px;
+  height: 450px;
+  grid-template:
+    'clear backspace power divide'
+    'seven eigth nine multiply'
+    'four five six minus'
+    'one two three plus'
+    'zero decimal equal plus';
+}
+
 .button {
   display: flex;
   justify-content: center;
@@ -99,6 +78,7 @@ footer {
   transition: all 0.2s;
   user-select: none;
   border: none;
+  outline: 0;
 }
 
 .button:hover {
@@ -116,6 +96,37 @@ footer {
   background-color: #F45B69;
 }
 
+/* Footer */
+
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  background-color: #e8f1f2;
+  width: 400px;
+  padding-bottom: 20px;
+}
+
+.copyright {
+  color: #028090;
+  font-weight: 600;
+}
+
+.copyright a {
+  color: #114B5F;
+  text-decoration: none;
+}
+
+.copyright a:hover {
+  color: #1d2d44;
+  text-decoration: underline;
+  text-decoration-color: #F45B69;
+  text-decoration-thickness: 2px;
+}
+
+
+/* Buttons positions */
 #number-0 {
   grid-area: zero;
 }

@@ -21,14 +21,17 @@ function add(a, b) {
   const answer = a + b;
   return roundLongDecimals(answer);
 }
+
 function subtract(a, b) {
   const answer = a - b;
   return roundLongDecimals(answer);
 }
+
 function multiply(a, b) {
   const answer = a * b;
   return roundLongDecimals(answer);
 }
+
 function divide(a, b) {
   if (b === 0) {
     return 'Oops';
@@ -36,6 +39,7 @@ function divide(a, b) {
   const answer = a / b;
   return roundLongDecimals(answer);
 }
+
 function power(a, b) {
   let answer = a;
   for (let i = 1; i < b; i += 1) {
@@ -62,12 +66,19 @@ function displayHistory(toHistory) {
 
 function displayInput(task, value) {
   if (task === 'add') {
+    if (newInput === 'Infinity') {
+      newInput = '';
+    }
     if (value !== '0' || newInput !== '0') {
       newInput += value;
       input.textContent = newInput;
     }
   } else if (task === 'backspace') {
-    newInput = newInput.slice(0, -1);
+    if (newInput === 'Infinity') {
+      newInput = '';
+    } else {
+      newInput = newInput.slice(0, -1);
+    }
     if (newInput.indexOf('.') === -1) {
       decimalPoint.removeAttribute('disabled');
     }
@@ -157,18 +168,21 @@ function buttonsHandler(button) {
 
 function startCalculator() {
   buttons.forEach((button) => {
-    button.addEventListener('click', () => { buttonsHandler(button); });
+    button.addEventListener('click', () => {
+      buttonsHandler(button);
+      buttons.forEach((but) => { but.blur(); });
+    });
   });
-
+  // Keyboard support
   document.addEventListener('keyup', (event) => {
     const operators = {
-      '/': 'divide',
-      'x': 'multiply',
-      '*': 'multiply',
-      '^': 'power',
       '+': 'plus',
       '-': 'minus',
+      '*': 'multiply',
+      '/': 'divide',
+      '^': 'power',
     };
+    buttons.forEach((button) => { button.blur(); });
     if (!Number.isNaN(+event.key) && event.key !== ' ') {
       document.getElementById(`number-${event.key}`).click();
     } else if (event.key === 'Backspace') {
@@ -178,12 +192,11 @@ function startCalculator() {
     } else if (event.key === '.') {
       document.getElementById('decimal').click();
     } else if (event.key === '=' || event.key === 'Enter') {
-      buttons.forEach((button) => { button.blur(); });
       document.getElementById('equal').click();
-    } else if (['/', 'x', '+', '-', '*', '^'].includes(event.key)) {
+    } else if (['+', '-', '*', '/', '^'].includes(event.key)) {
       document.getElementById(operators[event.key]).click();
     } else {
-      console.log('wrong key', event.key);
+      console.log('Wrong key:', event.key);
     }
   });
 }
