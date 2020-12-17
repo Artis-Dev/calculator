@@ -114,13 +114,13 @@ function buttonsHandler(button) {
       displayInput('add', button.textContent);
     }
   } else if (button.classList.contains('operator')) {
-    if (firstNumber === '' && secondNumber === '' && action === '' && newInput !== '') {
+    if (firstNumber === '' && secondNumber === '' && action === '' && newInput !== '' && newInput !== '.') {
       firstNumber = newInput;
       action = button.id;
       displayHistory(firstNumber);
       displayHistory(action, 'operator');
       displayInput('clear', 0);
-    } else if (newInput !== '' && firstNumber !== '' && action !== '') {
+    } else if (newInput !== '' && firstNumber !== '' && action !== '' && newInput !== '.') {
       secondNumber = newInput;
       displayHistory(secondNumber);
       operate(action, firstNumber, secondNumber);
@@ -128,13 +128,13 @@ function buttonsHandler(button) {
       displayHistory(action, 'operator');
       firstNumber = newInput;
       displayInput('clear', 0);
-    } else if (newInput === '' && firstNumber !== '' && action === '') {
+    } else if (newInput === '' && firstNumber !== '' && action === '' && newInput !== '.') {
       displayHistory(firstNumber);
       action = button.id;
       displayHistory(action, 'operator');
       secondNumber = newInput;
       displayInput('clear', 0);
-    } else if (newInput !== '' && firstNumber !== '' && action === '') {
+    } else if (newInput !== '' && firstNumber !== '' && action === '' && newInput !== '.') {
       firstNumber = newInput;
       action = button.id;
       displayHistory(firstNumber);
@@ -142,13 +142,11 @@ function buttonsHandler(button) {
       displayInput('clear', 0);
     }
   } else if (button.classList.contains('equal')) {
-    if (newInput !== '' && firstNumber !== '') {
+    if (newInput !== '' && firstNumber !== '' && newInput !== '.') {
       secondNumber = newInput;
       displayHistory(secondNumber);
       displayHistory('=');
       operate(action, firstNumber, secondNumber);
-      firstNumber = newInput;
-      newInput = '';
     }
   } else if (button.classList.contains('backspace')) {
     displayInput('backspace', 0);
@@ -160,7 +158,33 @@ function buttonsHandler(button) {
 function startCalculator() {
   buttons.forEach((button) => {
     button.addEventListener('click', () => { buttonsHandler(button); });
-    // button.addEventListener('keyup', (key) => { buttonsHandler(key); });
+  });
+
+  document.addEventListener('keyup', (event) => {
+    const operators = {
+      '/': 'divide',
+      'x': 'multiply',
+      '*': 'multiply',
+      '^': 'power',
+      '+': 'plus',
+      '-': 'minus',
+    };
+    if (!Number.isNaN(+event.key) && event.key !== ' ') {
+      document.getElementById(`number-${event.key}`).click();
+    } else if (event.key === 'Backspace') {
+      document.getElementById('backspace').click();
+    } else if (event.key === 'Delete' || event.key === 'c' || event.key === 'C') {
+      document.getElementById('clear').click();
+    } else if (event.key === '.') {
+      document.getElementById('decimal').click();
+    } else if (event.key === '=' || event.key === 'Enter') {
+      buttons.forEach((button) => { button.blur(); });
+      document.getElementById('equal').click();
+    } else if (['/', 'x', '+', '-', '*', '^'].includes(event.key)) {
+      document.getElementById(operators[event.key]).click();
+    } else {
+      console.log('wrong key', event.key);
+    }
   });
 }
 
