@@ -41,6 +41,9 @@ function divide(a, b) {
 }
 
 function power(a, b) {
+  if (b === 0){
+    return roundLongDecimals(1);
+  }
   let answer = a;
   for (let i = 1; i < b; i += 1) {
     answer *= a;
