@@ -3,11 +3,10 @@
   "version": "1.0.0",
   "description": "Project to create Calculator using only HTML, CSS and Vanilla JS.",
   "main": "app.js",
-  "dependencies": {},
   "devDependencies": {
-    "eslint": "^8.24.0",
+    "eslint": "^8.55.0",
     "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.26.0"
+    "eslint-plugin-import": "^2.29.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
